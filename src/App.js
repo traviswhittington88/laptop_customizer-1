@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Features from './Features'
+import Summary from './Summary'
 
 // Normalizes string as a slug - a string that is safe to use
 // in both URLs and html attributes
@@ -47,20 +48,7 @@ class App extends Component {
   render() {
     
 
-    const summary = Object.keys(this.state.selected).map((feature, idx) => {
-      const featureHash = feature + '-' + idx;
-      const selectedOption = this.state.selected[feature];
-
-      return (
-        <div className="summary__option" key={featureHash}>
-          <div className="summary__option__label">{feature} </div>
-          <div className="summary__option__value">{selectedOption.name}</div>
-          <div className="summary__option__cost">
-            {USCurrencyFormat.format(selectedOption.cost)}
-          </div>
-        </div>
-      );
-    });
+   
 
     const total = Object.keys(this.state.selected).reduce(
       (acc, curr) => acc + this.state.selected[curr].cost,
@@ -79,7 +67,7 @@ class App extends Component {
           </form>
           <section className="main__summary">
             <h2>Your cart</h2>
-            {summary}
+            <Summary selected={this.state.selected} />
             <div className="summary__total">
               <div className="summary__total__label">Total</div>
               <div className="summary__total__value">
